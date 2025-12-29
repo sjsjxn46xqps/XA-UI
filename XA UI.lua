@@ -1,11 +1,9 @@
 --[[ 
-    YC GUI Library - Final Release
-    Author: BeiHai
+    YC XA GUI Library - Final Release
+    Author: BeiHai XiaoAn
     
     更新内容:
-    1. [优化] 移除了设置页面的所有测试控件，保持严谨。
-    2. [修复] 开启 UI 时，全屏遮罩层(Backdrop)现在会拦截所有点击，防止操作穿透到游戏世界。
-    3. [保留] 颜色选择器拖拽修复、自定义宽高设置、完整主题库。
+    1. 此为改版
 ]]
 
 local Library = {}
