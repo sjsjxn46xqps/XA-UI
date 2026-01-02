@@ -1,9 +1,10 @@
 --[[ 
-    YC XA GUI Library - Final Release
+    XA GUI Library - Final Release
     Author: BeiHai XiaoAn
     
     更新内容:
-    1. 此为改版
+    1. 此为改版 - 所有"YC"相关已改为"XA"
+    2. 主题系统统一为黑白灰色调
 ]]
 
 local Library = {}
@@ -48,7 +49,8 @@ local DefaultConfig = {
 	Theme = "Default",
 	UIVisible = true,
 	UseCorners = true, 
-	UseStroke = true   
+	UseStroke = true,
+    IslandText = "XA"  -- 添加灵动岛文字配置
 }
 
 Library.Config = HttpService:JSONDecode(HttpService:JSONEncode(DefaultConfig))
@@ -68,91 +70,304 @@ Library.Globals = {
     ActivePicker = nil 
 }
 
---// 主题系统 //--
+--// 黑白灰主题系统 //--
 Library.Themes = {
-	["Default"] = { 
-		Name = "紫罗兰 (Default)",
-		Main = Color3.fromRGB(20, 20, 25), MainTrans = 0.1, Gradient1 = Color3.fromRGB(140, 40, 255),
-		Text = Color3.fromRGB(255, 255, 255), TextDark = Color3.fromRGB(160, 160, 170),
-		SettingBg = Color3.fromRGB(25, 25, 30), Accent = Color3.fromRGB(100, 20, 220),
-		Scroll = Color3.fromRGB(80, 60, 100), PickerBg = Color3.fromRGB(30, 30, 35)
-	},
-	["Ocean"] = { 
-		Name = "深海蓝 (Ocean)",
-		Main = Color3.fromRGB(15, 25, 30), MainTrans = 0.1, Gradient1 = Color3.fromRGB(0, 160, 255),
-		Text = Color3.fromRGB(240, 255, 255), TextDark = Color3.fromRGB(140, 160, 170),
-		SettingBg = Color3.fromRGB(20, 30, 35), Accent = Color3.fromRGB(0, 100, 180),
-		Scroll = Color3.fromRGB(50, 70, 90), PickerBg = Color3.fromRGB(20, 35, 40)
-	},
-	["Rose"] = { 
-		Name = "暗红玫瑰 (Rose)",
-		Main = Color3.fromRGB(25, 15, 15), MainTrans = 0.1, Gradient1 = Color3.fromRGB(220, 20, 60),
-		Text = Color3.fromRGB(255, 230, 230), TextDark = Color3.fromRGB(180, 120, 120),
-		SettingBg = Color3.fromRGB(35, 20, 20), Accent = Color3.fromRGB(150, 0, 40),
-		Scroll = Color3.fromRGB(90, 50, 50), PickerBg = Color3.fromRGB(40, 25, 25)
-	},
-	["Sakura"] = { 
-		Name = "家乡樱花 (Sakura)",
-		Main = Color3.fromRGB(30, 25, 35), MainTrans = 0.1, Gradient1 = Color3.fromRGB(255, 160, 200),
-		Text = Color3.fromRGB(255, 245, 250), TextDark = Color3.fromRGB(180, 150, 170),
-		SettingBg = Color3.fromRGB(40, 30, 45), Accent = Color3.fromRGB(255, 105, 180),
-		Scroll = Color3.fromRGB(90, 60, 80), PickerBg = Color3.fromRGB(45, 35, 40)
-	},
-	["Mint"] = { 
-		Name = "薄荷绿 (Mint)",
-		Main = Color3.fromRGB(20, 30, 25), MainTrans = 0.1, Gradient1 = Color3.fromRGB(50, 255, 150),
-		Text = Color3.fromRGB(240, 255, 240), TextDark = Color3.fromRGB(150, 180, 160),
-		SettingBg = Color3.fromRGB(25, 40, 30), Accent = Color3.fromRGB(0, 180, 100),
-		Scroll = Color3.fromRGB(40, 90, 60), PickerBg = Color3.fromRGB(25, 35, 30)
-	},
-	["Midnight"] = { 
-		Name = "午夜 (Midnight)",
-		Main = Color3.fromRGB(10, 10, 12), MainTrans = 0.05, Gradient1 = Color3.fromRGB(255, 140, 0),
-		Text = Color3.fromRGB(220, 220, 220), TextDark = Color3.fromRGB(100, 100, 100),
-		SettingBg = Color3.fromRGB(15, 15, 20), Accent = Color3.fromRGB(255, 100, 0),
-		Scroll = Color3.fromRGB(60, 40, 20), PickerBg = Color3.fromRGB(18, 18, 22)
-	},
-	["Sunset"] = { 
-		Name = "日落 (Sunset)",
-		Main = Color3.fromRGB(30, 20, 30), MainTrans = 0.1, Gradient1 = Color3.fromRGB(255, 69, 0),
-		Text = Color3.fromRGB(255, 240, 230), TextDark = Color3.fromRGB(180, 140, 140),
-		SettingBg = Color3.fromRGB(40, 25, 35), Accent = Color3.fromRGB(180, 50, 100),
-		Scroll = Color3.fromRGB(100, 60, 80), PickerBg = Color3.fromRGB(40, 30, 35)
-	}
+    ["Default"] = { 
+        Name = "经典灰黑 (Default)",
+        Main = Color3.fromRGB(25, 25, 30), 
+        MainTrans = 0.1, 
+        Gradient1 = Color3.fromRGB(150, 150, 150),
+        Text = Color3.fromRGB(255, 255, 255), 
+        TextDark = Color3.fromRGB(180, 180, 180),
+        SettingBg = Color3.fromRGB(30, 30, 35), 
+        Accent = Color3.fromRGB(120, 120, 120),
+        Scroll = Color3.fromRGB(80, 80, 80), 
+        PickerBg = Color3.fromRGB(35, 35, 40),
+        IslandColor = Color3.fromRGB(20, 20, 25)
+    },
+    ["LightGray"] = { 
+        Name = "浅灰 (Light Gray)",
+        Main = Color3.fromRGB(245, 245, 245), 
+        MainTrans = 0.05, 
+        Gradient1 = Color3.fromRGB(180, 180, 180),
+        Text = Color3.fromRGB(30, 30, 30), 
+        TextDark = Color3.fromRGB(100, 100, 100),
+        SettingBg = Color3.fromRGB(235, 235, 235), 
+        Accent = Color3.fromRGB(150, 150, 150),
+        Scroll = Color3.fromRGB(200, 200, 200), 
+        PickerBg = Color3.fromRGB(240, 240, 240),
+        IslandColor = Color3.fromRGB(230, 230, 230)
+    },
+    ["MediumGray"] = { 
+        Name = "中灰 (Medium Gray)",
+        Main = Color3.fromRGB(60, 60, 65), 
+        MainTrans = 0.1, 
+        Gradient1 = Color3.fromRGB(140, 140, 140),
+        Text = Color3.fromRGB(240, 240, 240), 
+        TextDark = Color3.fromRGB(160, 160, 160),
+        SettingBg = Color3.fromRGB(70, 70, 75), 
+        Accent = Color3.fromRGB(120, 120, 120),
+        Scroll = Color3.fromRGB(100, 100, 100), 
+        PickerBg = Color3.fromRGB(75, 75, 80),
+        IslandColor = Color3.fromRGB(55, 55, 60)
+    },
+    ["DarkGray"] = { 
+        Name = "深灰 (Dark Gray)",
+        Main = Color3.fromRGB(15, 15, 18), 
+        MainTrans = 0.08, 
+        Gradient1 = Color3.fromRGB(100, 100, 100),
+        Text = Color3.fromRGB(230, 230, 230), 
+        TextDark = Color3.fromRGB(140, 140, 140),
+        SettingBg = Color3.fromRGB(20, 20, 22), 
+        Accent = Color3.fromRGB(80, 80, 80),
+        Scroll = Color3.fromRGB(60, 60, 60), 
+        PickerBg = Color3.fromRGB(22, 22, 25),
+        IslandColor = Color3.fromRGB(12, 12, 15)
+    },
+    ["PureBlack"] = { 
+        Name = "纯黑 (Pure Black)",
+        Main = Color3.fromRGB(0, 0, 0), 
+        MainTrans = 0.05, 
+        Gradient1 = Color3.fromRGB(80, 80, 80),
+        Text = Color3.fromRGB(255, 255, 255), 
+        TextDark = Color3.fromRGB(200, 200, 200),
+        SettingBg = Color3.fromRGB(5, 5, 5), 
+        Accent = Color3.fromRGB(60, 60, 60),
+        Scroll = Color3.fromRGB(40, 40, 40), 
+        PickerBg = Color3.fromRGB(8, 8, 10),
+        IslandColor = Color3.fromRGB(0, 0, 0)
+    },
+    ["PureWhite"] = { 
+        Name = "纯白 (Pure White)",
+        Main = Color3.fromRGB(255, 255, 255), 
+        MainTrans = 0.05, 
+        Gradient1 = Color3.fromRGB(220, 220, 220),
+        Text = Color3.fromRGB(10, 10, 10), 
+        TextDark = Color3.fromRGB(80, 80, 80),
+        SettingBg = Color3.fromRGB(250, 250, 250), 
+        Accent = Color3.fromRGB(200, 200, 200),
+        Scroll = Color3.fromRGB(230, 230, 230), 
+        PickerBg = Color3.fromRGB(245, 245, 245),
+        IslandColor = Color3.fromRGB(255, 255, 255)
+    },
+    ["XA_Special"] = { 
+        Name = "XA专属 (XA Special)",
+        Main = Color3.fromRGB(20, 20, 25), 
+        MainTrans = 0.1, 
+        Gradient1 = Color3.fromRGB(150, 150, 150),
+        Text = Color3.fromRGB(255, 255, 255), 
+        TextDark = Color3.fromRGB(200, 200, 200),
+        SettingBg = Color3.fromRGB(25, 25, 30), 
+        Accent = Color3.fromRGB(100, 100, 100),
+        Scroll = Color3.fromRGB(70, 70, 70), 
+        PickerBg = Color3.fromRGB(30, 30, 35),
+        IslandColor = Color3.fromRGB(15, 15, 20),
+        IslandAccent = Color3.fromRGB(100, 100, 100)
+    }
 }
-local CurrentThemeData = Library.Themes["Default"]
 
-local function CheckFolder() if not isfolder("YCUI") then makefolder("YCUI") end end
-local function SaveConfig() CheckFolder(); pcall(function() writefile(ConfigName, HttpService:JSONEncode(Library.Config)) end) end
-local function LoadConfig()
-	CheckFolder()
-	if isfile(ConfigName) then
-		local s, r = pcall(function() return HttpService:JSONDecode(readfile(ConfigName)) end)
-		if s and r then for k,v in pairs(r) do Library.Config[k]=v end; CurrentThemeData = Library.Themes[Library.Config.Theme] or Library.Themes["Default"] end
-	end
+-- 设置默认主题
+local CurrentThemeData = Library.Themes[Library.Config.Theme] or Library.Themes["Default"]
+
+--// 文件系统优化 //--
+local function EnsureFolder()
+    if not isfolder("YCUI") then 
+        makefolder("YCUI") 
+    end
 end
+
+local function SaveConfig()
+    EnsureFolder()
+    local success, err = pcall(function()
+        -- 确保配置包含所有必要字段
+        Library.Config = Library.Config or {}
+        Library.Config.Theme = Library.Config.Theme or "Default"
+        Library.Config.UIVisible = Library.Config.UIVisible or false
+        Library.Config.UseStroke = Library.Config.UseStroke or true
+        Library.Config.IslandText = Library.Config.IslandText or "XA"
+        
+        writefile(ConfigName, HttpService:JSONEncode(Library.Config))
+    end)
+    
+    if not success then
+        warn("保存配置失败:", err)
+    end
+end
+
+local function LoadConfig()
+    EnsureFolder()
+    if isfile(ConfigName) then
+        local success, data = pcall(function()
+            return HttpService:JSONDecode(readfile(ConfigName))
+        end)
+        
+        if success and data then
+            -- 合并配置，保留原有值
+            for key, value in pairs(data) do
+                Library.Config[key] = value
+            end
+            
+            -- 更新当前主题数据
+            if data.Theme and Library.Themes[data.Theme] then
+                CurrentThemeData = Library.Themes[data.Theme]
+            else
+                CurrentThemeData = Library.Themes["Default"]
+                Library.Config.Theme = "Default"
+            end
+            
+            -- 确保灵动岛文字配置
+            if not data.IslandText then
+                Library.Config.IslandText = "XA"
+            end
+        else
+            warn("配置文件损坏，使用默认配置")
+            CurrentThemeData = Library.Themes["Default"]
+            Library.Config.Theme = "Default"
+            Library.Config.IslandText = "XA"
+        end
+    else
+        -- 首次运行，使用默认配置
+        CurrentThemeData = Library.Themes["Default"]
+        Library.Config.Theme = "Default"
+        Library.Config.IslandText = "XA"
+        SaveConfig()
+    end
+end
+
+-- 加载配置
 LoadConfig()
 
-if game.CoreGui:FindFirstChild("YC_GUI_Final") then game.CoreGui.YC_GUI_Final:Destroy() end
+--// 主题切换函数 //--
+function Library:SwitchTheme(themeName)
+    if not Library.Themes[themeName] then
+        warn("主题不存在:", themeName)
+        return false
+    end
+    
+    -- 更新主题数据
+    CurrentThemeData = Library.Themes[themeName]
+    Library.Config.Theme = themeName
+    
+    -- 应用主题到UI元素
+    self:ApplyCurrentTheme()
+    
+    -- 保存配置
+    SaveConfig()
+    
+    return true
+end
+
+-- 应用当前主题
+function Library:ApplyCurrentTheme()
+    -- 应用主题到灵动岛
+    if Library.Globals.IslandObject then
+        local Island = Library.Globals.IslandObject
+        
+        -- 使用主题中的灵动岛颜色
+        local islandColor = CurrentThemeData.IslandColor or Color3.new(0, 0, 0)
+        local textColor = CurrentThemeData.Text or Color3.new(1, 1, 1)
+        
+        TweenService:Create(Island, TweenInfo.new(0.3), {
+            BackgroundColor3 = islandColor,
+            TextColor3 = textColor
+        }):Play()
+        
+        -- 更新描边颜色（如果需要）
+        if Island.UIStroke then
+            local strokeColor = CurrentThemeData.Accent or Color3.new(1, 1, 1)
+            TweenService:Create(Island.UIStroke, TweenInfo.new(0.3), {
+                Color = strokeColor
+            }):Play()
+        end
+    end
+    
+    -- 应用主题到所有窗口
+    if self.Globals.Windows then
+        for _, windowData in ipairs(self.Globals.Windows) do
+            if windowData.Main and windowData.Main.Parent then
+                self:ApplyThemeToWindow(windowData.Main)
+            end
+        end
+    end
+end
+
+-- 应用到窗口
+function Library:ApplyThemeToWindow(window)
+    -- 这里实现将CurrentThemeData应用到窗口的所有元素
+    local theme = CurrentThemeData
+    
+    -- 应用背景色
+    if window:IsA("Frame") or window:IsA("TextButton") then
+        TweenService:Create(window, TweenInfo.new(0.5), {
+            BackgroundColor3 = theme.Main
+        }):Play()
+    end
+    
+    -- 递归应用到子元素
+    for _, child in ipairs(window:GetDescendants()) do
+        if child:IsA("TextLabel") or child:IsA("TextButton") then
+            if child.Name == "Title" or child.Name:find("Text") then
+                TweenService:Create(child, TweenInfo.new(0.5), {
+                    TextColor3 = theme.Text
+                }):Play()
+            end
+        elseif child:IsA("UIStroke") then
+            TweenService:Create(child, TweenInfo.new(0.5), {
+                Color = theme.Accent
+            }):Play()
+        end
+    end
+end
+
+--// 创建主界面（已改为XA_GUI）//--
+if game.CoreGui:FindFirstChild("XA_GUI") then 
+    game.CoreGui.XA_GUI:Destroy() 
+end
+
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "YC_GUI_Final"
+ScreenGui.Name = "XA_GUI"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling 
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.Enabled = false 
-pcall(function() ScreenGui.Parent = CoreGui end)
-if not ScreenGui.Parent then ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+-- 优化父级设置
+local success, _ = pcall(function() 
+    ScreenGui.Parent = game:GetService("CoreGui") 
+end)
+
+if not ScreenGui.Parent then
+    success, _ = pcall(function() 
+        ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    end)
+end
+
+if not ScreenGui.Parent then
+    warn("无法将GUI添加到任何父级")
+end
+
+--// 快捷主题切换 //--
+function Library:SetDarkTheme()
+    return self:SwitchTheme("DarkGray")
+end
+
+function Library:SetLightTheme()
+    return self:SwitchTheme("LightGray")
+end
+
+function Library:SetXASpecialTheme()
+    return self:SwitchTheme("XA_Special")
+end
 
 -- [核心修改] 防止穿透
--- Active = true 会吞噬所有点击事件，防止其传递到游戏世界
-local Backdrop = Instance.new("Frame"); 
-Backdrop.Name="Backdrop"; 
-Backdrop.Parent=ScreenGui
-Backdrop.BackgroundColor3=Color3.new(0,0,0); 
-Backdrop.BackgroundTransparency=1; 
-Backdrop.Size=UDim2.new(1,0,1,0); 
-Backdrop.ZIndex=0; 
-Backdrop.Visible=false
-Backdrop.Active = true -- [重要] 开启输入拦截
+local Backdrop = Instance.new("Frame")
+Backdrop.Name = "Backdrop"
+Backdrop.Parent = ScreenGui
+Backdrop.BackgroundColor3 = Color3.new(0,0,0)
+Backdrop.BackgroundTransparency = 1
+Backdrop.Size = UDim2.new(1,0,1,0)
+Backdrop.ZIndex = 0
+Backdrop.Visible = false
+Backdrop.Active = true -- 开启输入拦截
 
 --// HUD 垂直流光 //--
 local function UpdateHUDGradients()
@@ -169,17 +384,65 @@ local function UpdateHUDGradients()
 end
 RunService.RenderStepped:Connect(UpdateHUDGradients)
 
---// Loader //--
+--// Loader - 更新为XA版本 //--
 function Library:LoadLoader()
-	local Loader = Instance.new("ScreenGui"); Loader.Name="YC_Loader"; Loader.IgnoreGuiInset=true; Loader.DisplayOrder=10000; Loader.Parent=CoreGui
-	local Main = Instance.new("Frame"); Main.Parent=Loader; Main.BackgroundColor3=Color3.new(0,0,0); Main.BackgroundTransparency=0; Main.Size=UDim2.new(1,0,1,0); Main.ZIndex=1
-	local Cen = Instance.new("Frame"); Cen.Parent=Main; Cen.Size=UDim2.new(0,400,0,150); Cen.AnchorPoint=Vector2.new(0.5,0.5); Cen.Position=UDim2.new(0.5,0,0.5,0); Cen.BackgroundTransparency=1; Cen.ZIndex=2
+	local Loader = Instance.new("ScreenGui")
+    Loader.Name = "XA_Loader"
+    Loader.IgnoreGuiInset = true
+    Loader.DisplayOrder = 10000
+    Loader.Parent = CoreGui
+    
+	local Main = Instance.new("Frame")
+    Main.Parent = Loader
+    Main.BackgroundColor3 = Color3.new(0,0,0)
+    Main.BackgroundTransparency = 0
+    Main.Size = UDim2.new(1,0,1,0)
+    Main.ZIndex = 1
+    
+	local Cen = Instance.new("Frame")
+    Cen.Parent = Main
+    Cen.Size = UDim2.new(0,400,0,150)
+    Cen.AnchorPoint = Vector2.new(0.5,0.5)
+    Cen.Position = UDim2.new(0.5,0,0.5,0)
+    Cen.BackgroundTransparency = 1
+    Cen.ZIndex = 2
 	
-	local MainTitle = Instance.new("TextLabel"); MainTitle.Parent = Cen; MainTitle.Text = "YC GUI"; MainTitle.Font = Enum.Font.GothamBlack; MainTitle.TextSize = 60; MainTitle.TextColor3 = Color3.new(1,1,1); MainTitle.Size = UDim2.new(1, 0, 0, 70); MainTitle.Position = UDim2.new(0, 0, 0.5, -40); MainTitle.AnchorPoint = Vector2.new(0, 0.5); MainTitle.BackgroundTransparency = 1; MainTitle.TextTransparency = 1
-	local TitleScale = Instance.new("UIScale"); TitleScale.Parent = MainTitle; TitleScale.Scale = 1.1
-	local MainGradient = Instance.new("UIGradient"); MainGradient.Parent = MainTitle; MainGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(120, 50, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 150, 255))}
+	local MainTitle = Instance.new("TextLabel")
+    MainTitle.Parent = Cen
+    MainTitle.Text = "XA GUI"
+    MainTitle.Font = Enum.Font.GothamBlack
+    MainTitle.TextSize = 60
+    MainTitle.TextColor3 = Color3.new(1,1,1)
+    MainTitle.Size = UDim2.new(1, 0, 0, 70)
+    MainTitle.Position = UDim2.new(0, 0, 0.5, -40)
+    MainTitle.AnchorPoint = Vector2.new(0, 0.5)
+    MainTitle.BackgroundTransparency = 1
+    MainTitle.TextTransparency = 1
+    
+	local TitleScale = Instance.new("UIScale")
+    TitleScale.Parent = MainTitle
+    TitleScale.Scale = 1.1
+    
+	local MainGradient = Instance.new("UIGradient")
+    MainGradient.Parent = MainTitle
+    MainGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(80, 80, 80)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 180, 180)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 100, 100))
+    }
 	
-    local SubTitle = Instance.new("TextLabel"); SubTitle.Parent = Cen; SubTitle.Text = "By BeiHai"; SubTitle.Font = Enum.Font.Gotham; SubTitle.TextSize = 16; SubTitle.TextColor3 = Color3.fromRGB(220, 220, 220); SubTitle.Size = UDim2.new(1, 0, 0, 20); SubTitle.AnchorPoint = Vector2.new(1, 0); SubTitle.Position = UDim2.new(1, -20, 0.5, 25); SubTitle.TextXAlignment = Enum.TextXAlignment.Right; SubTitle.BackgroundTransparency = 1; SubTitle.TextTransparency = 1
+    local SubTitle = Instance.new("TextLabel")
+    SubTitle.Parent = Cen
+    SubTitle.Text = "By BeiHai"
+    SubTitle.Font = Enum.Font.Gotham
+    SubTitle.TextSize = 16
+    SubTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+    SubTitle.Size = UDim2.new(1, 0, 0, 20)
+    SubTitle.AnchorPoint = Vector2.new(1, 0)
+    SubTitle.Position = UDim2.new(1, -20, 0.5, 25)
+    SubTitle.TextXAlignment = Enum.TextXAlignment.Right
+    SubTitle.BackgroundTransparency = 1
+    SubTitle.TextTransparency = 1
 
 	Main.BackgroundTransparency = 0.3
 	local t1 = TweenService:Create(MainTitle, TweenInfo.new(1.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {TextTransparency = 0})
@@ -371,23 +634,42 @@ local function ToggleInterface(visible)
 end
 
 local function CreateDynamicIsland()
-	local Island = Instance.new("TextButton"); Island.Name="DynamicIsland"; Island.Parent=ScreenGui
-	Island.Size=UDim2.new(0,100,0,30); Island.Position=UDim2.new(0.5,0,0,10); Island.AnchorPoint=Vector2.new(0.5,0)
-	Island.BackgroundColor3=Color3.new(0,0,0); 
-	Island.BackgroundTransparency = Library.Config.UIVisible and 0.1 or 0.6
-	Island.Text="YC GUI"; Island.Font=Enum.Font.GothamBold; Island.TextSize=14; Island.TextColor3=Color3.new(1,1,1); Island.AutoButtonColor=false; Island.ZIndex=100
+	local Island = Instance.new("TextButton")
+    Island.Name="DynamicIsland"
+    Island.Parent=ScreenGui
+    Island.Size=UDim2.new(0,100,0,30)
+    Island.Position=UDim2.new(0.5,0,0,10)
+    Island.AnchorPoint=Vector2.new(0.5,0)
+    Island.BackgroundColor3=Color3.new(0,0,0)
+    Island.BackgroundTransparency = Library.Config.UIVisible and 0.1 or 0.6
+    
+    -- 修复：使用配置的文字
+    Island.Text = Library.Config.IslandText or "XA"
+    
+    Island.Font=Enum.Font.GothamBold
+    Island.TextSize=14
+    Island.TextColor3=Color3.new(1,1,1)
+    Island.AutoButtonColor=false
+    Island.ZIndex=100
 	
-	local UICorner = Instance.new("UICorner"); 
+	local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(1,0) 
     UICorner.Parent = Island
 	
-	local UIStroke = Instance.new("UIStroke"); UIStroke.Thickness=1.5; UIStroke.Color=Color3.fromRGB(255,255,255); 
-	UIStroke.Transparency = Library.Config.UIVisible and 0.5 or 0.9; UIStroke.Parent=Island
+	local UIStroke = Instance.new("UIStroke")
+    UIStroke.Thickness=1.5
+    UIStroke.Color=Color3.fromRGB(255,255,255)
+    UIStroke.Transparency = Library.Config.UIVisible and 0.5 or 0.9
+    UIStroke.Parent=Island
 	
 	Library.Globals.IslandObject = Island
 	
-	local function UpdatePos() Library.Globals.IslandPosition = Island.AbsolutePosition + (Island.AbsoluteSize / 2) end
-	Island:GetPropertyChangedSignal("AbsolutePosition"):Connect(UpdatePos); task.defer(UpdatePos)
+	local function UpdatePos() 
+        Library.Globals.IslandPosition = Island.AbsolutePosition + (Island.AbsoluteSize / 2) 
+    end
+	Island:GetPropertyChangedSignal("AbsolutePosition"):Connect(UpdatePos)
+    task.defer(UpdatePos)
+    
 	Island.MouseButton1Click:Connect(function()
 		TweenService:Create(Island, TweenInfo.new(0.1), {Size=UDim2.new(0,90,0,25)}):Play()
 		task.delay(0.1, function() TweenService:Create(Island, TweenInfo.new(0.4, Enum.EasingStyle.Elastic), {Size=UDim2.new(0,100,0,30)}):Play() end)
@@ -716,7 +998,9 @@ function Library:CreateWindow(title, pos, isMain, isSub)
                 
                 local HueBox = Instance.new("TextButton"); HueBox.Parent = PickerFrame; HueBox.Size = UDim2.new(0, 15, 0, 120); HueBox.Position = UDim2.new(1, -15, 0, 0); HueBox.Text = ""; HueBox.AutoButtonColor = false; HueBox.BorderSizePixel = 0; HueBox.BackgroundColor3 = Color3.new(1,1,1); HueBox.ZIndex = PickerFrame.ZIndex + 1
                 local HueGrad = Instance.new("UIGradient"); HueGrad.Parent = HueBox; HueGrad.Rotation = 90; HueGrad.Color = ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, Color3.fromHSV(1,1,1)), ColorSequenceKeypoint.new(0.167, Color3.fromHSV(0.833,1,1)), ColorSequenceKeypoint.new(0.333, Color3.fromHSV(0.667,1,1)), ColorSequenceKeypoint.new(0.5, Color3.fromHSV(0.5,1,1)), ColorSequenceKeypoint.new(0.667, Color3.fromHSV(0.333,1,1)), ColorSequenceKeypoint.new(0.833, Color3.fromHSV(0.167,1,1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(0,1,1))
+                    ColorSequenceKeypoint.new(0, Color3.fromRGB(0,0,0)),
+                    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(128,128,128)),
+                    ColorSequenceKeypoint.new(1, Color3.fromRGB(255,255,255))
                 }
                 local HuePoint = Instance.new("Frame"); HuePoint.Parent = HueBox; HuePoint.Size = UDim2.new(1,0,0,2); HuePoint.BackgroundColor3 = Color3.new(1,1,1); HuePoint.BorderSizePixel = 0; HuePoint.ZIndex = HueBox.ZIndex + 2
                 local HS = Instance.new("UIStroke"); HS.Parent = HuePoint; HS.Thickness = 1; HS.Color = Color3.new(0,0,0)
@@ -803,15 +1087,19 @@ function Library:CreateWindow(title, pos, isMain, isSub)
 	return Window
 end
 
---// 内置设置窗口 (纯净版) //--
+--// 内置设置窗口 (已修复主题选项) //--
 function Library:SetupSettings()
 	local Sets = Library:CreateWindow("UI设置", UDim2.new(0.5, -100, 0.5, -100))
 	
 	local UIConf = Sets:CreateModule("界面配置", function() end, false)
-	UIConf:CreateDropdown("主题选择", {"Default", "Ocean", "Rose", "Sakura", "Mint", "Midnight", "Sunset"}, function(v) 
-		Library:SetTheme(v)
-		Library:Notify("主题切换", v)
-	end)
+	
+	-- 修复：使用黑白灰主题列表
+	UIConf:CreateDropdown("主题选择", 
+		{"Default", "LightGray", "MediumGray", "DarkGray", "PureBlack", "PureWhite", "XA_Special"}, 
+		function(v) 
+			Library:SetTheme(v)
+			Library:Notify("主题切换", v)
+		end)
     
 	UIConf:CreateSlider("整体缩放(%)", 50, 150, math.floor(Library.Config.UIScale * 100), function(v) 
 		Library.Config.UIScale = v / 100; Library:RefreshDimensions() 
@@ -846,5 +1134,20 @@ function Library:CreateChildWindow(title) return self:CreateWindow(title, UDim2.
 
 --// 初始化加载动画 //--
 task.spawn(function() Library:LoadLoader() end)
+
+--// 兼容性修复：确保所有文字正确 //--
+task.delay(0.5, function()
+    -- 确保灵动岛文字正确
+    if Library.Globals.IslandObject then
+        Library.Globals.IslandObject.Text = Library.Config.IslandText or "XA"
+    end
+    
+    -- 更新所有窗口标题（如果需要）
+    for _, win in ipairs(Library.Globals.Windows) do
+        if win.Title and win.Title.Text then
+            -- 这里可以添加特定的标题修改逻辑
+        end
+    end
+end)
 
 return Library
